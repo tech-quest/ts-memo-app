@@ -1,0 +1,13 @@
+USE app;
+
+CREATE TABLE IF NOT EXISTS memos (
+    id INT NOT NULL AUTO_INCREMENT,
+    content VARCHAR(255) NOT NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (id)
+);
+
+INSERT INTO memos (content) VALUES ('PHPの学習をする');
+INSERT INTO memos (content) VALUES ('PHPの復習をする');
+INSERT INTO memos (content) VALUES ('Laravelの学習をする');
