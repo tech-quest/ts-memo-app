@@ -20,7 +20,9 @@
     ],
     "paths": {
       "~/*": ["./src/*"]
-    }
+    },
+    // 学習しやすいようにコードを簡易化するために設定
+    "noImplicitAny": false,
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]
