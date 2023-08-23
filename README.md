@@ -1,44 +1,73 @@
+# 学習用教材: メモアプリ
+
+## URLs
+- [アプリケーション: https://localhost:3000/](https://localhost:3000/)
+
+## 環境構築の手順
+
+### 1. コンテナの立ち上げ
+
+以下コマンドを実行し、プログラムを動かすためのコンテナを立ち上げる
+
+```
+make up
+```
+
+### 2. コンテナのシステムにログインする
+
+1 で立ち上げたコンテナにログインするため、以下のコマンドを実行する
+
 ```
 make bash
 ```
-```
-npm ci
-```
-```
-npm run dev
-```
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+こちらのコマンドを実行して、ご自身のターミナルの表記が `nodeuser@cd649f7d8d99:/var/www$` のようになっていればログイン成功です。<br>
+※ **cd649f7d8d99** の部分はランダムで設定されるため、文字列が一致していなくても問題はありません。
 
-## Getting Started
+### 3. アプリケーションを起動する
 
-First, run the development server:
+コンテナへのログインが完了したら、以下コマンドを実行してシステム上でアプリケーションを起動してください。
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+```
+nodeuser@cd649f7d8d99:/var/www$ npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+※ コンテナにログインしている状態で実行する必要があります。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 4. ブラウザでアプリケーションにアクセスする
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+次のURL http://localhost:3000 を Chromeなどのブラウザに入力し、表示させてください。
 
-## Learn More
+## よくある質問
 
-To learn more about Next.js, take a look at the following resources:
+### コンテナからログアウトするにはどうすればいいですか？
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+`exit` コマンドを実行してください。
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### 作業を中断するためにコンテナを停止させるにはどうすればいいですか？
 
-## Deploy on Vercel
+以下のコマンドを実行することでコンテナを停止させることができます。
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+make stop
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+一度停止したあとでも `make up` を再度実行することでコンテナを再度立ち上げることができます。<br>
+再度立ち上げたあとは「2. コンテナのシステムにログインする」「3. アプリケーションを起動する」の手順を実行することで再度ブラウザでアプリを動かすことができます。
+
+### コンテナを削除したい場合はどうすればいいですか？
+
+以下のコマンドを実行することでコンテナを削除することができます。
+
+```
+make destroy
+```
+
+コンテナを削除する判断がわからない場合は講師にお問い合わせください。
+
+### git コマンドを実行しようとするとエラーとなります。
+
+自分が現在、コンテナにログインしている状態なのかどうかを確認してみてください。<br>
+コンテナはアプリケーションを動かすためシステムとなっているため、 git コマンドは実行できません。
+ログインしてしまっている場合は `exit` コマンドを実行してログアウトするか、別ウィンドウで新たにターミナルを起動して実行してみてください。
+

@@ -1,5 +1,5 @@
 MAKEFILE_DIR := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
-PJ_NAME := `basename ${MAKEFILE_DIR}`_devcontainer
+PJ_NAME := `basename ${MAKEFILE_DIR}`
 HOST_UID := `id -u $$USER`
 HOST_GID := `id -g $$USER`
 

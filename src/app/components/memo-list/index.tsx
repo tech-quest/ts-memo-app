@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 import { MyButton } from '~/components/elements/buttons/button';
 import { MemoUiModel } from '~/ui-models/memo';
 
@@ -20,9 +22,11 @@ export const MyMemoList = ({ memos }: Props) => {
             <div className={styles.sub}>
               <div className={styles.datetime}>{memo.createdAt}</div>
             </div>
-            <div className={styles.content}>{memo.title}</div>
+            <Link href={`/detail/${memo.id}`} className={styles.content}>
+              {memo.title}
+            </Link>
           </div>
-          <div className={styles.actions}>
+          {/* <div className={styles.actions}>
             <div>
               <MyButton color="secondary" size="small" asChild>
                 <a href="/edit/index.php?id=<?php echo $memo['id']; ?>">編集</a>
@@ -31,7 +35,7 @@ export const MyMemoList = ({ memos }: Props) => {
             <div>
               <MyButton size="small">削除</MyButton>
             </div>
-          </div>
+          </div> */}
         </li>
       ))}
     </ul>

@@ -1,28 +1,24 @@
 import { useEffect, useState } from 'react';
 
+import { useGetFetch } from '~/libs/hooks/use-fetch';
 import { MemoUiModel } from '~/ui-models/memo';
+
+type ApiResponseData = { id: string; title: string; createdAt: string };
 
 export const useHooks = () => {
   const [memos, setMemos] = useState<MemoUiModel[]>([]);
+  const { data, isLoading } = useGetFetch<ApiResponseData[]>('http://localhost:8000/memos');
 
-  const fetchMemos = async () => {
-    return await fetch('http://localhost:8000/memos', { method: 'GET', mode: 'cors' }).then(async (res) => {
-      const data = await res.json();
-
-      const memos = data.map((memo) => {
-        return {
-          id: memo.id,
-          title: memo.title,
-          createdAt: memo.createdAt,
-        };
-      });
-
-      setMemos(memos);
-    });
-  };
   useEffect(() => {
-    fetchMemos();
-  }, []);
+    if (!data) return;
+    const memos = convertToUiModel(data);
 
-  return { memos };
+    setMemos(memos);
+  }, [data]);
+
+  return { memos, isLoading };
+};
+
+const convertToUiModel = (data: ApiResponseData[]): MemoUiModel[] => {
+  return data.map((memo) => ({ id: memo.id, title: memo.title, createdAt: memo.createdAt }));
 };

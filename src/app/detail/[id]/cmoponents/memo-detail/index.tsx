@@ -11,11 +11,23 @@ export const MyMemoDetail = ({ memo }: Props) => {
     <MyPanel>
       <div className={styles.field}>
         <div className={styles.label}>タイトル</div>
-        <MyMultilineString value={memo.title} />
+        <div>
+          <MyMultilineString value={memo.title} />
+        </div>
       </div>
       <div className={styles.field}>
         <div className={styles.label}>内容</div>
-        <MyMultilineString value={memo.content} />
+        <div>
+          <MyMultilineString value={memo.content} />
+        </div>
+      </div>
+      <div className={styles.field}>
+        <div className={styles.label}>作成日時</div>
+        <div>{memo.createdAt}</div>
+      </div>
+      <div className={styles.field}>
+        <div className={styles.label}>更新日時</div>
+        <div>{memo.updatedAt}</div>
       </div>
     </MyPanel>
   );

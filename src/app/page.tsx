@@ -6,12 +6,12 @@ import { MyMemoList } from './components/memo-list';
 import { useHooks } from './hooks';
 
 export default function HomePage() {
-  const { memos } = useHooks();
+  const { memos, isLoading } = useHooks();
 
   return (
     <MyPageContainer>
       <h1>メモ一覧</h1>
-      <MyMemoList memos={memos} />
+      {isLoading ? <div>読み込み中...</div> : <MyMemoList memos={memos} />}
     </MyPageContainer>
   );
 }
