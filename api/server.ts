@@ -51,14 +51,14 @@ app.get('/memos', async (req, res) => {
   res.json(memos);
 });
 
-// http://localhost:8000/memo/1
-// http://localhost:8000/memo/a -> 404 Not Found
-app.get('/memo/:id', async (req, res) => {
+// http://localhost:8000/memos/detail/1
+// http://localhost:8000/memos/detail/a -> 404 Not Found
+app.get('/memos/detail/:id', async (req, res) => {
   const id = req.params.id;
   const record = await prisma.memo.findUnique({ where: { id: Number(id) } });
 
   if (!record) {
-    res.status(404).json({ message: 'メモが見つかりませんでした' });
+    res.status(404);
     return;
   }
 
@@ -69,6 +69,25 @@ app.get('/memo/:id', async (req, res) => {
     createdAt: record.createdAt,
     updatedAt: record.updatedAt,
   });
+});
+
+// http://localhost:8000/memos/create
+app.post('/memos/create', async (req, res) => {
+  const { title, content } = req.body;
+
+  if (typeof title !== 'string' || !title) {
+    res.status(400).json({ message: 'タイトルまたは内容が未入力です' });
+    return;
+  }
+
+  if (typeof content !== 'string' || !content) {
+    res.status(400).json({ message: 'タイトルまたは内容が未入力です' });
+    return;
+  }
+
+  const record = await prisma.memo.create({ data: { title, content } });
+
+  res.json({ id: record.id.toString(10) });
 });
 
 app.listen(port, () => {

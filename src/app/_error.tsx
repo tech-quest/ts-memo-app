@@ -4,7 +4,11 @@ const messages = {
 };
 
 function CustomErrorPage({ statusCode }) {
-  return <h1>{statusCode} - message[statusCode]</h1>;
+  return (
+    <h1>
+      {statusCode} - {messages[statusCode]}
+    </h1>
+  );
 }
 
 CustomErrorPage.getInitialProps = ({ res, err }) => {

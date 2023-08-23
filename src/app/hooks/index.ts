@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { useGetFetch } from '~/libs/hooks/use-fetch';
+import { useGetFetch } from '~/libs/hooks/use-get-fetch';
 import { MemoUiModel } from '~/ui-models/memo';
 
 type ApiResponseData = { id: string; title: string; createdAt: string };

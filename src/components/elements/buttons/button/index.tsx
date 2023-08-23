@@ -15,7 +15,7 @@ type CommonProps = {
 };
 
 type ButtonProps = CommonProps &
-  Pick<ComponentProps<'button'>, 'type' | 'onClick' | 'name' | 'value'> & {
+  Pick<ComponentProps<'button'>, 'type' | 'onClick' | 'name' | 'value' | 'disabled'> & {
     asChild?: false;
   };
 type AsChildProps = CommonProps & {

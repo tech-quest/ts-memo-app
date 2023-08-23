@@ -1,11 +1,6 @@
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-type ErrorResult = {
-  status: number;
-  message: string;
-};
-
 const configs: RequestInit = {
   method: 'GET',
   mode: 'cors',
@@ -25,7 +20,7 @@ export const useGetFetch = <T>(url: string) => {
     return;
   };
 
-  const fetchMemos = async () => {
+  const fetchApi = async () => {
     return await fetch(url, configs).then(async (res) => {
       setIsLoading(false);
 
@@ -40,7 +35,7 @@ export const useGetFetch = <T>(url: string) => {
   };
 
   useEffect(() => {
-    fetchMemos();
+    fetchApi();
   }, []);
 
   return { data, isLoading };

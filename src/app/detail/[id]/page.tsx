@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { MyButton } from '~/components/elements/buttons/button';
 import { MyPageContainer } from '~/components/surface/layouts/page-container';
 
-import { MyMemoDetail } from './cmoponents/memo-detail';
+import { MyMemoDetail } from './components/memo-detail';
 import { useHooks } from './hooks';
 
 type Params = {
