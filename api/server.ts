@@ -1,3 +1,4 @@
+import { PrismaClient } from '@prisma/client';
 import express from 'express';
 
 import { memosDatabase } from './dummy-database/memos';
@@ -21,13 +22,29 @@ app.use((req, res, next) => {
   }
 });
 
+declare global {
+  // eslint-disable-next-line no-var
+  var __db__: PrismaClient | undefined;
+}
+
+const initPrisma = () => {
+  if (process.env.NODE_ENV === 'production') return new PrismaClient();
+
+  const db = (global.__db__ = global.__db__ ?? new PrismaClient());
+  db.$connect();
+  return db;
+};
+
+const prisma = initPrisma();
+
 // http://localhost:8000/memos
-app.get('/memos', (req, res) => {
-  const memos = memosDatabase.map((memo) => {
+app.get('/memos', async (req, res) => {
+  const records = await prisma.memo.findMany();
+  const memos = records.map((memo) => {
     return {
       id: memo.id,
       title: memo.title,
-      createdAt: memo.created_at,
+      createdAt: memo.createdAt,
     };
   });
 
@@ -36,24 +53,21 @@ app.get('/memos', (req, res) => {
 
 // http://localhost:8000/memo/1
 // http://localhost:8000/memo/a -> 404 Not Found
-app.get('/memo/:id', (req, res) => {
+app.get('/memo/:id', async (req, res) => {
   const id = req.params.id;
+  const record = await prisma.memo.findUnique({ where: { id: Number(id) } });
 
-  const memo = memosDatabase.find((memo) => {
-    return memo.id === id;
-  });
-
-  if (!memo) {
+  if (!record) {
     res.status(404).json({ message: 'メモが見つかりませんでした' });
     return;
   }
 
   res.json({
-    id: memo.id,
-    title: memo.title,
-    content: memo.content,
-    createdAt: memo.created_at,
-    updatedAt: memo.updated_at,
+    id: record.id,
+    title: record.title,
+    content: record.content,
+    createdAt: record.createdAt,
+    updatedAt: record.updatedAt,
   });
 });
 
