@@ -7,7 +7,9 @@ type ApiResponseData = { id: string };
 export const useUpdateMemoApi = () => {
   const [success, setSuccess] = useState<boolean | null>(null);
 
-  const { data, error, isLoading, mutate } = usePostFetch<ApiResponseData>(`http://localhost:8000/memos/update`);
+  const { data, error, studyError, isLoading, mutate } = usePostFetch<ApiResponseData>(
+    `http://localhost:8000/memos/update`,
+  );
 
   useEffect(() => {
     if (!data) return;
@@ -19,5 +21,5 @@ export const useUpdateMemoApi = () => {
     setSuccess(true);
   }, [data, error]);
 
-  return { success, error, isUpdating: isLoading, updateMemo: mutate };
+  return { success, error, studyError, isUpdating: isLoading, updateMemo: mutate };
 };

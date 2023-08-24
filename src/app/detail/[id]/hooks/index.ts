@@ -2,8 +2,8 @@ import { useDeleteMemo } from './use-delete-memo';
 import { useFindMemo } from './use-find-memo';
 
 export const useHooks = (id: string) => {
-  const { memo, isLoading } = useFindMemo(id);
-  const { deleteError, isDeleting, handleDelete } = useDeleteMemo(id);
+  const { memo, findError, findStudyError, isLoading } = useFindMemo(id);
+  const { deleteError, deleteStudyError, isDeleting, handleDelete } = useDeleteMemo(id);
 
-  return { memo, isLoading, deleteError, isDeleting, handleDelete };
+  return { memo, findError, findStudyError, isLoading, deleteError, deleteStudyError, isDeleting, handleDelete };
 };

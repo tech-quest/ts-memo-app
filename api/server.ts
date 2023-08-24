@@ -1,8 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import express from 'express';
 
-import { memosDatabase } from './dummy-database/memos';
-
 const app = express();
 const port = 8000;
 
@@ -48,32 +46,33 @@ app.get('/memos', async (req, res) => {
     };
   });
 
-  res.json(memos);
+  res.json({ data: memos });
 });
 
 // http://localhost:8000/memos/detail/1
-// http://localhost:8000/memos/detail/a -> 404 Not Found
+// http://localhost:8000/memos/detail/a -> 400 Bad Request
 app.get('/memos/detail/:id', async (req, res) => {
   const id = Number(req.params.id);
   if (Number.isNaN(id)) {
-    console.log(id);
-    res.status(404).json({ message: 'メモが見つかりませんでした。' });
+    res.status(404).json({ error: { message: 'ID 形式が不正な形式となっています' } });
     return;
   }
 
   const record = await prisma.memo.findUnique({ where: { id } });
   if (!record) {
-    res.status(404).json({ message: 'メモが見つかりませんでした。' });
+    res.status(404).json({ error: { message: 'メモが見つかりませんでした。' } });
     return;
   }
 
-  res.json({
+  const memo = {
     id: record.id,
     title: record.title,
     content: record.content,
     createdAt: record.createdAt,
     updatedAt: record.updatedAt,
-  });
+  };
+
+  res.json({ data: memo });
 });
 
 // http://localhost:8000/memos/create
@@ -81,18 +80,18 @@ app.post('/memos/create', async (req, res) => {
   const { title, content } = req.body;
 
   if (typeof title !== 'string' || !title) {
-    res.status(400).json({ message: 'タイトルまたは内容が未入力です' });
+    res.status(400).json({ error: { message: 'タイトルまたは内容が未入力です' } });
     return;
   }
 
   if (typeof content !== 'string' || !content) {
-    res.status(400).json({ message: 'タイトルまたは内容が未入力です' });
+    res.status(400).json({ error: { message: 'タイトルまたは内容が未入力です' } });
     return;
   }
 
   const record = await prisma.memo.create({ data: { title, content } });
 
-  res.json({ id: record.id.toString(10) });
+  res.json({ data: { id: record.id.toString(10) } });
 });
 
 // http://localhost:8000/memos/update
@@ -101,26 +100,26 @@ app.post('/memos/update', async (req, res) => {
 
   const id = Number(memoId);
   if (Number.isNaN(id)) {
-    res.status(400).json({ message: 'ID 形式が不正な形式となっています' });
+    res.status(400).json({ error: { message: 'ID 形式が不正な形式となっています' } });
     return;
   }
 
   if (typeof title !== 'string' || !title) {
-    res.status(400).json({ message: 'タイトルまたは内容が未入力です' });
+    res.status(400).json({ error: { message: 'タイトルまたは内容が未入力です' } });
     return;
   }
 
   if (typeof content !== 'string' || !content) {
-    res.status(400).json({ message: 'タイトルまたは内容が未入力です' });
+    res.status(400).json({ error: { message: 'タイトルまたは内容が未入力です' } });
     return;
   }
 
   try {
     const record = await prisma.memo.update({ where: { id }, data: { title, content } });
 
-    res.json({ id: record.id.toString(10) });
+    res.json({ data: { id: record.id.toString(10) } });
   } catch {
-    res.status(400).json({ message: 'データベース操作に失敗しました。' });
+    res.status(500).json({ error: { message: 'データベース操作に失敗しました。' } });
   }
 });
 
@@ -130,16 +129,16 @@ app.post('/memos/delete', async (req, res) => {
 
   const id = Number(memoId);
   if (Number.isNaN(id)) {
-    res.status(400).json({ message: 'ID 形式が不正な形式となっています' });
+    res.status(400).json({ error: { message: 'ID 形式が不正な形式となっています' } });
     return;
   }
 
   try {
     const record = await prisma.memo.delete({ where: { id } });
 
-    res.json({ id: record.id.toString(10) });
+    res.json({ data: { id: record.id.toString(10) } });
   } catch {
-    res.status(400).json({ message: 'データベース操作に失敗しました。' });
+    res.status(500).json({ error: { message: 'データベース操作に失敗しました。' } });
   }
 });
 

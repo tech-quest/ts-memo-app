@@ -6,7 +6,7 @@ import { useDeleteMemoApi } from '~/features/memo/hooks/use-delete-memo-api';
 export const useDeleteMemo = (id: string) => {
   const router = useRouter();
 
-  const { success, error, isDeleting, deleteMemo } = useDeleteMemoApi();
+  const { success, error, studyError, isDeleting, deleteMemo } = useDeleteMemoApi();
 
   const handleDelete = () => {
     deleteMemo({ memoId: id });
@@ -17,5 +17,5 @@ export const useDeleteMemo = (id: string) => {
     router.push('/');
   }, [success]);
 
-  return { deleteError: error, isDeleting, handleDelete };
+  return { deleteError: error, deleteStudyError: studyError, isDeleting, handleDelete };
 };

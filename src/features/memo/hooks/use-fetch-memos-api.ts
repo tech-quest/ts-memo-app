@@ -1,4 +1,4 @@
-import { use, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useGetFetch } from '~/features/app/hooks/use-get-fetch';
 import { MemoUiModel } from '~/features/memo/ui-models/memo';
@@ -7,7 +7,8 @@ type ApiResponseData = { id: string; title: string; createdAt: string };
 
 export const useFetchMemosApi = () => {
   const [memos, setMemos] = useState<MemoUiModel[]>([]);
-  const { data, isLoading, query } = useGetFetch<ApiResponseData[]>('http://localhost:8000/memos');
+
+  const { data, error, studyError, isLoading, query } = useGetFetch<ApiResponseData[]>('http://localhost:8000/memos');
 
   useEffect(() => {
     if (!data) return;
@@ -16,7 +17,7 @@ export const useFetchMemosApi = () => {
     setMemos(memos);
   }, [data]);
 
-  return { memos, isLoading, query };
+  return { memos, error, studyError, isLoading, query };
 };
 
 const convertToUiModel = (data: ApiResponseData[]): MemoUiModel[] => {

@@ -6,7 +6,7 @@ import { useFindMemoApi } from '~/features/memo/hooks/use-find-memo-api';
 export const useFindMemo = (id: string) => {
   const [defaultValues, setDefaultValues] = useState<DefaultValues | null>();
 
-  const { memo, isLoading, query } = useFindMemoApi(id);
+  const { memo, error, studyError, isLoading, query } = useFindMemoApi(id);
 
   useEffect(() => {
     query();
@@ -17,5 +17,5 @@ export const useFindMemo = (id: string) => {
     setDefaultValues({ title: memo.title, content: memo.content });
   }, [memo]);
 
-  return { defaultValues, isLoading };
+  return { defaultValues, findError: error, findStudyError: studyError, isLoading };
 };

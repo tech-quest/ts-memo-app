@@ -7,7 +7,9 @@ type ApiResponseData = { id: string };
 export const useDeleteMemoApi = () => {
   const [success, setSuccess] = useState<boolean | null>(null);
 
-  const { data, error, isLoading, mutate } = usePostFetch<ApiResponseData>(`http://localhost:8000/memos/delete`);
+  const { data, error, studyError, isLoading, mutate } = usePostFetch<ApiResponseData>(
+    `http://localhost:8000/memos/delete`,
+  );
 
   useEffect(() => {
     if (!data) return;
@@ -19,5 +21,5 @@ export const useDeleteMemoApi = () => {
     setSuccess(true);
   }, [data, error]);
 
-  return { success, error, isDeleting: isLoading, deleteMemo: mutate };
+  return { success, error, studyError, isDeleting: isLoading, deleteMemo: mutate };
 };

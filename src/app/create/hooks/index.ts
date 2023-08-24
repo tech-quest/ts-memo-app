@@ -5,7 +5,7 @@ import { useCreateMemoApi } from '~/features/memo/hooks/use-create-memo-api';
 
 export const useHooks = () => {
   const router = useRouter();
-  const { success, error, isCreating, createMemo } = useCreateMemoApi();
+  const { success, error, studyError, isCreating, createMemo } = useCreateMemoApi();
 
   const handleSubmit = (title: string, content: string) => {
     createMemo({ title, content });
@@ -16,5 +16,5 @@ export const useHooks = () => {
     router.push('/');
   }, [success]);
 
-  return { error, isCreating, handleSubmit };
+  return { error, studyError, isCreating, handleSubmit };
 };

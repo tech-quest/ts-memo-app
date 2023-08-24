@@ -6,7 +6,7 @@ import { useUpdateMemoApi } from '~/features/memo/hooks/use-update-memo-api';
 export const useUpdateMemo = (id: string) => {
   const router = useRouter();
 
-  const { success, error, isUpdating, updateMemo } = useUpdateMemoApi();
+  const { success, error, studyError, isUpdating, updateMemo } = useUpdateMemoApi();
 
   const handleSubmit = (title: string, content: string) => {
     updateMemo({ memoId: id, title, content });
@@ -17,5 +17,5 @@ export const useUpdateMemo = (id: string) => {
     router.push('/');
   }, [success]);
 
-  return { updateError: error, isUpdating, handleSubmit };
+  return { updateError: error, updateStudyError: studyError, isUpdating, handleSubmit };
 };

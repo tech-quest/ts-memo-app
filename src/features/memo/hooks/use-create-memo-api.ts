@@ -7,7 +7,9 @@ type ApiResponseData = { id: string };
 export const useCreateMemoApi = () => {
   const [success, setSuccess] = useState<boolean | null>(null);
 
-  const { data, error, isLoading, mutate } = usePostFetch<ApiResponseData>('http://localhost:8000/memos/create');
+  const { data, error, studyError, isLoading, mutate } = usePostFetch<ApiResponseData>(
+    'http://localhost:8000/memos/create',
+  );
 
   useEffect(() => {
     if (!data) return;
@@ -19,5 +21,5 @@ export const useCreateMemoApi = () => {
     setSuccess(true);
   }, [data, error]);
 
-  return { success, error, isCreating: isLoading, createMemo: mutate };
+  return { success, error, studyError, isCreating: isLoading, createMemo: mutate };
 };
