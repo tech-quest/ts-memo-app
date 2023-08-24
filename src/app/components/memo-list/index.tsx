@@ -7,9 +7,11 @@ import styles from './styles.module.css';
 
 type Props = {
   memos: MemoUiModel[];
+  onClickDelete: (id: string) => void;
+  isDeleting?: boolean;
 };
 
-export const MyMemoList = ({ memos }: Props) => {
+export const MyMemoList = ({ memos, onClickDelete, isDeleting }: Props) => {
   if (!memos.length) {
     return <div>メモがありません。作成をしてメモを残しましょう！</div>;
   }
@@ -26,16 +28,18 @@ export const MyMemoList = ({ memos }: Props) => {
               {memo.title}
             </Link>
           </div>
-          {/* <div className={styles.actions}>
+          <div className={styles.actions}>
             <div>
               <MyButton color="secondary" size="small" asChild>
-                <a href="/edit/index.php?id=<?php echo $memo['id']; ?>">編集</a>
+                <a href={`/update/${memo.id}`}>編集</a>
               </MyButton>
             </div>
             <div>
-              <MyButton size="small">削除</MyButton>
+              <MyButton size="small" onClick={() => onClickDelete(memo.id)} disabled={isDeleting}>
+                {isDeleting ? '削除中' : '削除'}
+              </MyButton>
             </div>
-          </div> */}
+          </div>
         </li>
       ))}
     </ul>

@@ -22,9 +22,11 @@ export const usePostFetch = <T>(url: string) => {
     return;
   };
 
-  const mutate = async (values) => {
+  const mutate = async (values?) => {
     const body = JSON.stringify(values);
 
+    setData(null);
+    setError(null);
     setIsLoading(true);
 
     return await fetch(url, { ...configs, body }).then(async (res) => {

@@ -1,8 +1,6 @@
 'use client';
 
-import Link from 'next/link';
-
-import { MyButton } from '~/components/elements/buttons/button';
+import { MyAlertMessage } from '~/components/surface/dialogs/alert-message';
 import { MyPageContainer } from '~/features/app/components/page-container';
 import { MyMemoContainer } from '~/features/memo/components/memo-container';
 
@@ -15,15 +13,16 @@ type Params = {
 };
 
 export default function MemoDetailPage({ params }: { params: Params }) {
-  const { memo, isLoading } = useHooks(params.id);
+  const { memo, isLoading, deleteError, isDeleting, handleDelete } = useHooks(params.id);
 
   return (
     <MyPageContainer>
       <h1>メモ詳細</h1>
       <MyMemoContainer>
+        {deleteError && <MyAlertMessage color="error">{deleteError}</MyAlertMessage>}
         {!memo && isLoading && <div>読み込み中...</div>}
         {memo && <MyMemoDetail memo={memo} />}
-        <MyMemoActions id={params.id} />
+        <MyMemoActions id={params.id} onClickDelete={handleDelete} isDeleting={isDeleting} />
       </MyMemoContainer>
     </MyPageContainer>
   );

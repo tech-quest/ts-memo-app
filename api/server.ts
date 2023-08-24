@@ -95,16 +95,15 @@ app.post('/memos/create', async (req, res) => {
   res.json({ id: record.id.toString(10) });
 });
 
-// http://localhost:8000/memos/update/1
-// http://localhost:8000/memos/update/a -> 400 Bad Request
-app.post('/memos/update/:id', async (req, res) => {
-  const id = Number(req.params.id);
+// http://localhost:8000/memos/update
+app.post('/memos/update', async (req, res) => {
+  const { memoId, title, content } = req.body;
+
+  const id = Number(memoId);
   if (Number.isNaN(id)) {
-    res.status(400).json({ message: 'データベース操作に失敗しました。不正な ID 操作が行われた可能性があります。' });
+    res.status(400).json({ message: 'ID 形式が不正な形式となっています' });
     return;
   }
-
-  const { title, content } = req.body;
 
   if (typeof title !== 'string' || !title) {
     res.status(400).json({ message: 'タイトルまたは内容が未入力です' });
@@ -121,7 +120,26 @@ app.post('/memos/update/:id', async (req, res) => {
 
     res.json({ id: record.id.toString(10) });
   } catch {
-    res.status(400).json({ message: 'データベース操作に失敗しました。不正な ID 操作が行われた可能性があります。' });
+    res.status(400).json({ message: 'データベース操作に失敗しました。' });
+  }
+});
+
+// http://localhost:8000/memos/delete
+app.post('/memos/delete', async (req, res) => {
+  const { memoId } = req.body;
+
+  const id = Number(memoId);
+  if (Number.isNaN(id)) {
+    res.status(400).json({ message: 'ID 形式が不正な形式となっています' });
+    return;
+  }
+
+  try {
+    const record = await prisma.memo.delete({ where: { id } });
+
+    res.json({ id: record.id.toString(10) });
+  } catch {
+    res.status(400).json({ message: 'データベース操作に失敗しました。' });
   }
 });
 

@@ -4,10 +4,10 @@ import { usePostFetch } from '~/features/app/hooks/use-post-fetch';
 
 type ApiResponseData = { id: string };
 
-export const useUpdateMemo = (id: string) => {
+export const useCreateMemoApi = () => {
   const [success, setSuccess] = useState<boolean | null>(null);
 
-  const { data, error, isLoading, mutate } = usePostFetch<ApiResponseData>(`http://localhost:8000/memos/update/${id}`);
+  const { data, error, isLoading, mutate } = usePostFetch<ApiResponseData>('http://localhost:8000/memos/create');
 
   useEffect(() => {
     if (!data) return;
@@ -19,5 +19,5 @@ export const useUpdateMemo = (id: string) => {
     setSuccess(true);
   }, [data, error]);
 
-  return { success, error, isLoading, mutate };
+  return { success, error, isCreating: isLoading, createMemo: mutate };
 };

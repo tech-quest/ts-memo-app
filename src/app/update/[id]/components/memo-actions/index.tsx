@@ -5,10 +5,11 @@ import { MyButton } from '~/components/elements/buttons/button';
 import styles from './styles.module.css';
 
 type Props = {
-  id: string;
+  onClickDelete: () => void;
+  isDeleting?: boolean;
 };
 
-export const MyMemoActions = ({ id }: Props) => {
+export const MyMemoActions = ({ onClickDelete, isDeleting }: Props) => {
   return (
     <div className={styles.root}>
       <div>
@@ -17,7 +18,9 @@ export const MyMemoActions = ({ id }: Props) => {
         </MyButton>
       </div>
       <div>
-        <MyButton>削除</MyButton>
+        <MyButton onClick={onClickDelete} disabled={isDeleting}>
+          {isDeleting ? '削除中' : '削除'}
+        </MyButton>
       </div>
     </div>
   );

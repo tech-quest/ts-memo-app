@@ -5,7 +5,7 @@ import { MemoUiModel } from '~/features/memo/ui-models/memo';
 
 type ApiResponseData = { id: string; title: string; createdAt: string };
 
-export const useFetchMemos = () => {
+export const useFetchMemosApi = () => {
   const [memos, setMemos] = useState<MemoUiModel[]>([]);
   const { data, isLoading, query } = useGetFetch<ApiResponseData[]>('http://localhost:8000/memos');
 

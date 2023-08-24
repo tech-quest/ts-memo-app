@@ -5,7 +5,7 @@ import { MemoDetailUiModel } from '~/features/memo/ui-models/memo';
 
 type ApiResponseData = { id: string; title: string; content: string; createdAt: string; updatedAt: string };
 
-export const useFindMemo = (id: string) => {
+export const useFindMemoApi = (id: string) => {
   const [memo, setMemo] = useState<MemoDetailUiModel | null>(null);
 
   const { data, isLoading, query } = useGetFetch<ApiResponseData>(`http://localhost:8000/memos/detail/${id}`);

@@ -1,13 +1,9 @@
-import { useEffect } from 'react';
-
-import { useFindMemo } from '~/features/memo/hooks/use-find-memo';
+import { useDeleteMemo } from './use-delete-memo';
+import { useFindMemo } from './use-find-memo';
 
 export const useHooks = (id: string) => {
-  const { memo, isLoading, query } = useFindMemo(id);
+  const { memo, isLoading } = useFindMemo(id);
+  const { deleteError, isDeleting, handleDelete } = useDeleteMemo(id);
 
-  useEffect(() => {
-    query();
-  }, []);
-
-  return { memo, isLoading };
+  return { memo, isLoading, deleteError, isDeleting, handleDelete };
 };

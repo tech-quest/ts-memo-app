@@ -1,7 +1,20 @@
-import { useCreateMemo } from '~/features/memo/hooks/use-create-memo';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
+
+import { useCreateMemoApi } from '~/features/memo/hooks/use-create-memo-api';
 
 export const useHooks = () => {
-  const { error, isLoading, handleSubmit } = useCreateMemo();
+  const router = useRouter();
+  const { success, error, isCreating, createMemo } = useCreateMemoApi();
 
-  return { error, isLoading, handleSubmit };
+  const handleSubmit = (title: string, content: string) => {
+    createMemo({ title, content });
+  };
+
+  useEffect(() => {
+    if (!success) return;
+    router.push('/');
+  }, [success]);
+
+  return { error, isCreating, handleSubmit };
 };

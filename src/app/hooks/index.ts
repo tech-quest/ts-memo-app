@@ -1,13 +1,14 @@
-import { useEffect } from 'react';
-
-import { useFetchMemos } from '~/features/memo/hooks/use-fetch-memos';
+import { useDeleteMemo } from './use-delete-memo';
+import { useFetchMemos } from './use-fetch-memos';
 
 export const useHooks = () => {
-  const { memos, isLoading, query } = useFetchMemos();
+  const { memos, isLoading, refetch } = useFetchMemos();
+  const { deleteError, isDeleting, deleteMemo } = useDeleteMemo();
 
-  useEffect(() => {
-    query();
-  }, []);
+  const handleDelete = async (id: string) => {
+    await deleteMemo({ memoId: id });
+    await refetch();
+  };
 
-  return { memos, isLoading };
+  return { memos, isLoading, deleteError, isDeleting, handleDelete };
 };
