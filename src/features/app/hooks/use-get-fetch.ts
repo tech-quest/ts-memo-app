@@ -34,9 +34,5 @@ export const useGetFetch = <T>(url: string) => {
     });
   };
 
-  useEffect(() => {
-    query();
-  }, []);
-
-  return { data, isLoading };
+  return { data, isLoading, query };
 };

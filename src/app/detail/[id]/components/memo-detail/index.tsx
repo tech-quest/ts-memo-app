@@ -1,6 +1,6 @@
 import { MyMultilineString } from '~/components/elements/typographies/multiline-string';
 import { MyPanel } from '~/components/surface/panels/panel';
-import { MemoDetailUiModel } from '~/ui-models/memo';
+import { MemoDetailUiModel } from '~/features/memo/ui-models/memo';
 
 import styles from './styles.module.css';
 

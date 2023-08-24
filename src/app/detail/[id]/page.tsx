@@ -3,8 +3,8 @@
 import Link from 'next/link';
 
 import { MyButton } from '~/components/elements/buttons/button';
-import { MyMemoContainer } from '~/components/surface/layouts/memo-container';
-import { MyPageContainer } from '~/components/surface/layouts/page-container';
+import { MyPageContainer } from '~/features/app/components/page-container';
+import { MyMemoContainer } from '~/features/memo/components/memo-container';
 
 import { MyMemoActions } from './components/memo-actions';
 import { MyMemoDetail } from './components/memo-detail';

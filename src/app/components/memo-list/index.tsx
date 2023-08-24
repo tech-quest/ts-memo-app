@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 import { MyButton } from '~/components/elements/buttons/button';
-import { MemoUiModel } from '~/ui-models/memo';
+import { MemoUiModel } from '~/features/memo/ui-models/memo';
 
 import styles from './styles.module.css';
 

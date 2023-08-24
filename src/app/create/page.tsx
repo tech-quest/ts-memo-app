@@ -4,8 +4,8 @@ import Link from 'next/link';
 
 import { MyButton } from '~/components/elements/buttons/button';
 import { MyAlertMessage } from '~/components/surface/dialogs/alert-message';
-import { MyMemoContainer } from '~/components/surface/layouts/memo-container';
-import { MyPageContainer } from '~/components/surface/layouts/page-container';
+import { MyPageContainer } from '~/features/app/components/page-container';
+import { MyMemoContainer } from '~/features/memo/components/memo-container';
 
 import { MyCreateMemoForm } from './components/create-memo-form';
 import { useHooks } from './hooks';

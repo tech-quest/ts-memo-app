@@ -3,7 +3,7 @@
 import Link from 'next/link';
 
 import { MyButton } from '~/components/elements/buttons/button';
-import { MyPageContainer } from '~/components/surface/layouts/page-container';
+import { MyPageContainer } from '~/features/app/components/page-container';
 
 import { MyMemoList } from './components/memo-list';
 import { useHooks } from './hooks';

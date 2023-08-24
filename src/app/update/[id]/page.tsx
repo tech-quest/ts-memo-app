@@ -1,8 +1,8 @@
 'use client';
 
 import { MyAlertMessage } from '~/components/surface/dialogs/alert-message';
-import { MyMemoContainer } from '~/components/surface/layouts/memo-container';
-import { MyPageContainer } from '~/components/surface/layouts/page-container';
+import { MyPageContainer } from '~/features/app/components/page-container';
+import { MyMemoContainer } from '~/features/memo/components/memo-container';
 
 import { MyMemoActions } from './components/memo-actions';
 import { MyUpdateMemoForm } from './components/update-memo-form';
