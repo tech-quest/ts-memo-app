@@ -20,7 +20,7 @@ export const useGetFetch = <T>(url: string) => {
     return;
   };
 
-  const fetchApi = async () => {
+  const query = async () => {
     return await fetch(url, configs).then(async (res) => {
       setIsLoading(false);
 
@@ -35,7 +35,7 @@ export const useGetFetch = <T>(url: string) => {
   };
 
   useEffect(() => {
-    fetchApi();
+    query();
   }, []);
 
   return { data, isLoading };

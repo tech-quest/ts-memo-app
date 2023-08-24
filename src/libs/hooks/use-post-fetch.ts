@@ -22,7 +22,7 @@ export const usePostFetch = <T>(url: string) => {
     return;
   };
 
-  const fetchApi = async (values) => {
+  const mutate = async (values) => {
     const body = JSON.stringify(values);
 
     setIsLoading(true);
@@ -45,5 +45,5 @@ export const usePostFetch = <T>(url: string) => {
     });
   };
 
-  return { data, error, isLoading, fetchApi };
+  return { data, error, isLoading, mutate };
 };

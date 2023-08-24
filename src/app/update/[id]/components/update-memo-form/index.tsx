@@ -7,14 +7,17 @@ import { MyPanel } from '~/components/surface/panels/panel';
 
 import styles from './styles.module.css';
 
+export type DefaultValues = { title: string; content: string };
+
 type Props = {
+  defaultValues: DefaultValues;
   isSubmitting: boolean;
   onSubmit: (title: string, content: string) => void;
 };
 
-export const MyCreateMemoForm = ({ isSubmitting, onSubmit }: Props) => {
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
+export const MyUpdateMemoForm = ({ defaultValues, isSubmitting, onSubmit }: Props) => {
+  const [title, setTitle] = useState(defaultValues.title);
+  const [content, setContent] = useState(defaultValues.content);
 
   const handleChangeTitle = (value: string) => {
     setTitle(value);
@@ -35,7 +38,7 @@ export const MyCreateMemoForm = ({ isSubmitting, onSubmit }: Props) => {
         <MyTextareaField label="内容" name="content" value={content} onChange={handleChangeContent} />
         <div>
           <MyButton type="submit" color="primary" disabled={isSubmitting}>
-            {isSubmitting ? '送信中' : '作成'}
+            {isSubmitting ? '送信中' : '保存'}
           </MyButton>
         </div>
       </form>

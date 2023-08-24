@@ -3,8 +3,10 @@
 import Link from 'next/link';
 
 import { MyButton } from '~/components/elements/buttons/button';
+import { MyMemoContainer } from '~/components/surface/layouts/memo-container';
 import { MyPageContainer } from '~/components/surface/layouts/page-container';
 
+import { MyMemoActions } from './components/memo-actions';
 import { MyMemoDetail } from './components/memo-detail';
 import { useHooks } from './hooks';
 
@@ -18,13 +20,11 @@ export default function MemoDetailPage({ params }: { params: Params }) {
   return (
     <MyPageContainer>
       <h1>メモ詳細</h1>
-      {!memo && isLoading && <div>読み込み中...</div>}
-      {memo && <MyMemoDetail memo={memo} />}
-      <div>
-        <MyButton asChild>
-          <Link href="/">一覧に戻る</Link>
-        </MyButton>
-      </div>
+      <MyMemoContainer>
+        {!memo && isLoading && <div>読み込み中...</div>}
+        {memo && <MyMemoDetail memo={memo} />}
+        <MyMemoActions id={params.id} />
+      </MyMemoContainer>
     </MyPageContainer>
   );
 }

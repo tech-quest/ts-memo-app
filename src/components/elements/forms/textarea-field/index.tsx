@@ -1,5 +1,9 @@
+import clsx from 'clsx';
+
 import fieldStyles from '~/components/elements/forms/shared/field-styles.module.css';
 import { MyErrorMessage } from '~/components/elements/typographies/error-message';
+
+import styles from './styles.module.css';
 
 type Props = {
   label: string;
@@ -26,7 +30,7 @@ export const MyTextareaField = ({ label, name, value, onChange, error }: Props) 
           name={name}
           value={value}
           onChange={handleChange}
-          className={fieldStyles.textInput}
+          className={clsx([fieldStyles.textInput, styles.textarea])}
           aria-invalid={Boolean(error)}
           aria-errormessage={error ? errorId : undefined}
         />

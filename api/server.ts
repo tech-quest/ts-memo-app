@@ -54,11 +54,16 @@ app.get('/memos', async (req, res) => {
 // http://localhost:8000/memos/detail/1
 // http://localhost:8000/memos/detail/a -> 404 Not Found
 app.get('/memos/detail/:id', async (req, res) => {
-  const id = req.params.id;
-  const record = await prisma.memo.findUnique({ where: { id: Number(id) } });
+  const id = Number(req.params.id);
+  if (Number.isNaN(id)) {
+    console.log(id);
+    res.status(404).json({ message: 'メモが見つかりませんでした。' });
+    return;
+  }
 
+  const record = await prisma.memo.findUnique({ where: { id } });
   if (!record) {
-    res.status(404);
+    res.status(404).json({ message: 'メモが見つかりませんでした。' });
     return;
   }
 
@@ -88,6 +93,36 @@ app.post('/memos/create', async (req, res) => {
   const record = await prisma.memo.create({ data: { title, content } });
 
   res.json({ id: record.id.toString(10) });
+});
+
+// http://localhost:8000/memos/update/1
+// http://localhost:8000/memos/update/a -> 400 Bad Request
+app.post('/memos/update/:id', async (req, res) => {
+  const id = Number(req.params.id);
+  if (Number.isNaN(id)) {
+    res.status(400).json({ message: 'データベース操作に失敗しました。不正な ID 操作が行われた可能性があります。' });
+    return;
+  }
+
+  const { title, content } = req.body;
+
+  if (typeof title !== 'string' || !title) {
+    res.status(400).json({ message: 'タイトルまたは内容が未入力です' });
+    return;
+  }
+
+  if (typeof content !== 'string' || !content) {
+    res.status(400).json({ message: 'タイトルまたは内容が未入力です' });
+    return;
+  }
+
+  try {
+    const record = await prisma.memo.update({ where: { id }, data: { title, content } });
+
+    res.json({ id: record.id.toString(10) });
+  } catch {
+    res.status(400).json({ message: 'データベース操作に失敗しました。不正な ID 操作が行われた可能性があります。' });
+  }
 });
 
 app.listen(port, () => {
