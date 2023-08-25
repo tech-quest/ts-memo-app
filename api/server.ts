@@ -69,7 +69,7 @@ app.get('/memos/detail/:id', async (req, res) => {
 });
 
 // APIのURL http://localhost:8000/memos/create
-// 作成が完了したら http://localhost:3000/detail/1 にアクセスして確認してみましょう！
+// 作成が完了したら http://localhost:3000/create にアクセスして確認してみましょう！
 app.post('/memos/create', async (req, res) => {
   const { title, content } = req.body;
 
