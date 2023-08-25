@@ -1,24 +1,14 @@
-import { useEffect, useState } from 'react';
-
-import { useGetFetch } from '~/libs/hooks/use-fetch';
-import { MemoUiModel } from '~/ui-models/memo';
-
-type ApiResponseData = { id: string; title: string; createdAt: string };
+import { useDeleteMemo } from './use-delete-memo';
+import { useFetchMemos } from './use-fetch-memos';
 
 export const useHooks = () => {
-  const [memos, setMemos] = useState<MemoUiModel[]>([]);
-  const { data, isLoading } = useGetFetch<ApiResponseData[]>('http://localhost:8000/memos');
+  const { memos, fetchError, fetchStudyError, isLoading, refetch } = useFetchMemos();
+  const { deleteError, deleteStudyError, isDeleting, deleteMemo } = useDeleteMemo();
 
-  useEffect(() => {
-    if (!data) return;
-    const memos = convertToUiModel(data);
+  const handleDelete = async (id: string) => {
+    await deleteMemo({ memoId: id });
+    await refetch();
+  };
 
-    setMemos(memos);
-  }, [data]);
-
-  return { memos, isLoading };
-};
-
-const convertToUiModel = (data: ApiResponseData[]): MemoUiModel[] => {
-  return data.map((memo) => ({ id: memo.id, title: memo.title, createdAt: memo.createdAt }));
+  return { memos, fetchError, fetchStudyError, isLoading, deleteError, deleteStudyError, isDeleting, handleDelete };
 };
