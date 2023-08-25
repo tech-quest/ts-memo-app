@@ -22,7 +22,7 @@ app.get('/memos', (req, res) => {
     };
   });
 
-  res.json(memos);
+  res.json({ data: memos });
 });
 
 // ↑↑↑ バックエンド処理を記述して実際に開発してみましょう！！
