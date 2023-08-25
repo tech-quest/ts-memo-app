@@ -118,6 +118,26 @@ app.post('/memos/update', async (req, res) => {
   }
 });
 
+// APIのURL http://localhost:8000/memos/delete
+// 作成が完了したら http://localhost:3000/ などの削除ボタンをクリックしてみよう
+app.post('/memos/delete', async (req, res) => {
+  const { memoId } = req.body;
+
+  const id = Number(memoId);
+  if (Number.isNaN(id)) {
+    res.status(400).json({ error: { message: 'ID 形式が不正な形式となっています' } });
+    return;
+  }
+
+  try {
+    const record = await prisma.memo.delete({ where: { id } });
+
+    res.json({ data: { id: record.id.toString(10) } });
+  } catch {
+    res.status(500).json({ error: { message: 'データベース操作に失敗しました。' } });
+  }
+});
+
 // ↑↑↑ バックエンド処理を記述して実際に開発してみましょう！！
 
 app.listen(port, () => {
