@@ -28,7 +28,7 @@ export default function MemoCreatePage() {
       {studyError && (
         <MyStudyAlert
           message={studyError.message}
-          description="API の開発が完了すると作成ボタンをクリックした際に「新規メモをデータベースに登録」し、「一覧画面に戻る」ようになります。"
+          description="API (http://localhost:8000/memos/create) の開発が完了すると作成ボタンをクリックした際に「新規メモをデータベースに登録」し、「一覧画面に戻る」ようになります。"
         />
       )}
     </MyPageContainer>

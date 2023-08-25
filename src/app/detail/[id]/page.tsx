@@ -30,13 +30,13 @@ export default function MemoDetailPage({ params }: { params: Params }) {
       {findStudyError && (
         <MyStudyAlert
           message={findStudyError.message}
-          description="API の開発が完了すると「選択したメモの詳細」が表示されるようになります。"
+          description="API (http://localhost:8000/memos/detail/:id) の開発が完了すると「選択したメモの詳細」が表示されるようになります。"
         />
       )}
       {deleteStudyError && (
         <MyStudyAlert
           message={deleteStudyError.message}
-          description="API の開発が完了すると削除ボタンをクリックした際に「選択したメモの変更内容をデータベースから削除」し、「一覧画面に戻る」ようになります。"
+          description="API (http://localhost:8000/memos/delete) の開発が完了すると削除ボタンをクリックした際に「選択したメモの変更内容をデータベースから削除」し、「一覧画面に戻る」ようになります。"
         />
       )}
     </MyPageContainer>

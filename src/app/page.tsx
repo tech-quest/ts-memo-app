@@ -32,13 +32,13 @@ export default function HomePage() {
       {fetchStudyError && (
         <MyStudyAlert
           message={fetchStudyError.message}
-          description="API の開発が完了すると「メモの一覧」が表示されるようになります。"
+          description="API (http://localhost:8000/memos) の開発が完了すると「メモの一覧」が表示されるようになります。"
         />
       )}
       {deleteStudyError && (
         <MyStudyAlert
           message={deleteStudyError.message}
-          description="API の開発が完了すると削除ボタンをクリックした際に「選択したメモの変更内容をデータベースから削除」できるようになります。"
+          description="API (http://localhost:8000/memos/delete) の開発が完了すると削除ボタンをクリックした際に「選択したメモの変更内容をデータベースから削除」できるようになります。"
         />
       )}
     </MyPageContainer>

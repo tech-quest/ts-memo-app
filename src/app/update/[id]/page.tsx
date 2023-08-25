@@ -45,19 +45,19 @@ export default function MemoCreatePage({ params }: { params: Params }) {
       {findStudyError && (
         <MyStudyAlert
           message={findStudyError.message}
-          description="API の開発が完了すると「選択したメモの値が設定された編集フォーム」が表示されるようになります。"
+          description="API (http://localhost:8000/memos/detail) の開発が完了すると「選択したメモの値が設定された編集フォーム」が表示されるようになります。"
         />
       )}
       {updateStudyError && (
         <MyStudyAlert
           message={updateStudyError.message}
-          description="API の開発が完了すると保存ボタンをクリックした際に「選択したメモの変更内容をデータベースに保存」し、「一覧画面に戻る」ようになります。"
+          description="API (http://localhost:8000/memos/update) の開発が完了すると保存ボタンをクリックした際に「選択したメモの変更内容をデータベースに保存」し、「一覧画面に戻る」ようになります。"
         />
       )}
       {deleteStudyError && (
         <MyStudyAlert
           message={deleteStudyError.message}
-          description="API の開発が完了すると削除ボタンをクリックした際に「選択したメモの変更内容をデータベースから削除」し、「一覧画面に戻る」ようになります。"
+          description="API (http://localhost:8000/memos/delete) の開発が完了すると削除ボタンをクリックした際に「選択したメモの変更内容をデータベースから削除」し、「一覧画面に戻る」ようになります。"
         />
       )}
     </MyPageContainer>
