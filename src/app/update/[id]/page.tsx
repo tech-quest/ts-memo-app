@@ -45,7 +45,7 @@ export default function MemoCreatePage({ params }: { params: Params }) {
       {findStudyError && (
         <MyStudyAlert
           message={findStudyError.message}
-          description="API (http://localhost:8000/memos/detail) の開発が完了すると「選択したメモの値が設定された編集フォーム」が表示されるようになります。"
+          description="API (http://localhost:8000/memos/detail/:id) の開発が完了すると「選択したメモの値が設定された編集フォーム」が表示されるようになります。"
         />
       )}
       {updateStudyError && (
