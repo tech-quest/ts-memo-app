@@ -40,7 +40,7 @@ app.get('/memos/detail/:id', (req, res) => {
   });
 
   if (!memo) {
-    res.status(404).json({ message: 'メモが見つかりませんでした' });
+    res.status(404).json({ error: { message: 'メモが見つかりませんでした' } });
     return;
   }
 
