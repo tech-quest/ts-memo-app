@@ -68,6 +68,26 @@ app.get('/memos/detail/:id', async (req, res) => {
   res.json({ data: memo });
 });
 
+// APIのURL http://localhost:8000/memos/create
+// 作成が完了したら http://localhost:3000/detail/1 にアクセスして確認してみましょう！
+app.post('/memos/create', async (req, res) => {
+  const { title, content } = req.body;
+
+  if (typeof title !== 'string' || !title) {
+    res.status(400).json({ error: { message: 'タイトルまたは内容が未入力です' } });
+    return;
+  }
+
+  if (typeof content !== 'string' || !content) {
+    res.status(400).json({ error: { message: 'タイトルまたは内容が未入力です' } });
+    return;
+  }
+
+  const record = await prisma.memo.create({ data: { title, content } });
+
+  res.json({ data: { id: record.id.toString(10) } });
+});
+
 // ↑↑↑ バックエンド処理を記述して実際に開発してみましょう！！
 
 app.listen(port, () => {
