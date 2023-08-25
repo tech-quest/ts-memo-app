@@ -88,6 +88,36 @@ app.post('/memos/create', async (req, res) => {
   res.json({ data: { id: record.id.toString(10) } });
 });
 
+// APIのURL http://localhost:8000/memos/update
+// 作成が完了したら http://localhost:3000/update/1 にアクセスして確認してみましょう！
+app.post('/memos/update', async (req, res) => {
+  const { memoId, title, content } = req.body;
+
+  const id = Number(memoId);
+  if (Number.isNaN(id)) {
+    res.status(400).json({ error: { message: 'ID 形式が不正な形式となっています' } });
+    return;
+  }
+
+  if (typeof title !== 'string' || !title) {
+    res.status(400).json({ error: { message: 'タイトルまたは内容が未入力です' } });
+    return;
+  }
+
+  if (typeof content !== 'string' || !content) {
+    res.status(400).json({ error: { message: 'タイトルまたは内容が未入力です' } });
+    return;
+  }
+
+  try {
+    const record = await prisma.memo.update({ where: { id }, data: { title, content } });
+
+    res.json({ data: { id: record.id.toString(10) } });
+  } catch {
+    res.status(500).json({ error: { message: 'データベース操作に失敗しました。' } });
+  }
+});
+
 // ↑↑↑ バックエンド処理を記述して実際に開発してみましょう！！
 
 app.listen(port, () => {
