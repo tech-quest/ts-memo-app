@@ -25,8 +25,8 @@ app.get('/memos', (req, res) => {
   res.json({ data: memos });
 });
 
-// APIのURL http://localhost:8000/memos/1
-// 存在しないIDを指定した場合 http://localhost:8000/memos/a -> 404 Not Found
+// APIのURL http://localhost:8000/memos/detail/1
+// 存在しないIDを指定した場合 http://localhost:8000/memos/detail/a -> 404 Not Found
 // 作成が完了したら http://localhost:3000/detail/1 にアクセスして確認してみましょう！
 app.get('/memos/detail/:id', (req, res) => {
   const id = Number(req.params.id);
