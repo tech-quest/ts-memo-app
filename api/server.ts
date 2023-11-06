@@ -30,11 +30,12 @@ const prisma = initPrisma();
 // 作成が完了したら http://localhost:3000 にアクセスして確認してみましょう！
 app.get('/memos', async (req, res) => {
   const records = await prisma.memo.findMany();
+
   const memos = records.map((memo) => {
     return {
       id: memo.id,
       title: memo.title,
-      createdAt: memo.createdAt,
+      createdAt: formatDateInJa(memo.createdAt),
     };
   });
 
@@ -61,8 +62,8 @@ app.get('/memos/detail/:id', async (req, res) => {
     id: record.id,
     title: record.title,
     content: record.content,
-    createdAt: record.createdAt,
-    updatedAt: record.updatedAt,
+    createdAt: formatDateInJa(record.createdAt),
+    updatedAt: formatDateInJa(record.updatedAt),
   };
 
   res.json({ data: memo });
@@ -87,6 +88,16 @@ app.post('/memos/create', async (req, res) => {
 
   res.json({ data: { id: record.id.toString(10) } });
 });
+
+const formatDateInJa = (date: Date) => {
+  const year = date.getFullYear().toString();
+  const month = (date.getMonth() + 1).toString().padStart(2, '0');
+  const day = date.getDate().toString().padStart(2, '0');
+  const hours = date.getHours().toString().padStart(2, '0');
+  const minutes = date.getMinutes().toString().padStart(2, '0');
+
+  return `${year}/${month}/${day} ${hours}:${minutes}`;
+};
 
 // ↑↑↑ バックエンド処理を記述して実際に開発してみましょう！！
 
