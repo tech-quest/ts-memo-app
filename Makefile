@@ -13,7 +13,7 @@ stop:
 
 .PHONY: remove
 remove:
-	HOST_UID=$(HOST_UID) HOST_GID=$(HOST_GID) docker compose -p $(PJ_NAME) -f ./.docker/dev/docker-compose.yml down --rmi all --remove-orphans && docker volume rm $(PJ_NAME)_node_modules
+	HOST_UID=$(HOST_UID) HOST_GID=$(HOST_GID) docker compose -p $(PJ_NAME) -f ./.docker/dev/docker-compose.yml down --rmi all --remove-orphans
 
 .PHONY: destroy
 destroy:
