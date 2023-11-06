@@ -15,25 +15,4 @@ services:
     ports:
       - 3000:3000
       - 8000:8000
-    networks:
-      - dev-net
-
-  mysql:
-    platform: linux/x86_64
-    build:
-      context: ../..
-      dockerfile: ./.docker/images/mysql/Dockerfile.dev
-    volumes:
-      - mysql:/var/lib/mysql
-    env_file:
-      - .env.development
-    networks:
-      - dev-net
-
-volumes:
-  mysql:
-    driver: local
-
-networks:
-  dev-net:
-    driver: bridge
+      - 5555:5555
