@@ -18,12 +18,22 @@ app.get('/memos', (req, res) => {
     return {
       id: memo.id,
       title: memo.title,
-      createdAt: memo.created_at,
+      createdAt: formatDateInJa(memo.created_at),
     };
   });
 
   res.json({ data: memos });
 });
+
+const formatDateInJa = (date: Date) => {
+  const year = date.getFullYear().toString();
+  const month = (date.getMonth() + 1).toString().padStart(2, '0');
+  const day = date.getDate().toString().padStart(2, '0');
+  const hours = date.getHours().toString().padStart(2, '0');
+  const minutes = date.getMinutes().toString().padStart(2, '0');
+
+  return `${year}/${month}/${day} ${hours}:${minutes}`;
+};
 
 // ↑↑↑ バックエンド処理を記述して実際に開発してみましょう！！
 
